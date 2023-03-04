@@ -1,6 +1,10 @@
 import clsx from 'clsx';
+import { FC } from 'react';
 
-const GlassPane = ({ children, className }) => {
+const GlassPane: FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  className,
+}) => {
   return (
     <div
       className={clsx(

@@ -1,6 +1,10 @@
 import clsx from 'clsx';
+import { FC } from 'react';
 
-const Card = ({ className, children }) => {
+const Card: FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  children,
+}) => {
   return (
     <div
       className={clsx(
