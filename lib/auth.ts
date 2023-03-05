@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
-import { RequestCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 import { db } from './db';
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
@@ -33,7 +32,7 @@ export const validateJWT = async (jwt: string) => {
   return payload.payload as UserJWT;
 };
 
-export const getUserFromCookie = async (cookies: RequestCookies) => {
+export const getUserFromCookie = async (cookies: any) => {
   const jwt = cookies.get(process.env.COOKIE_NAME as string);
 
   const { id } = await validateJWT(jwt!.value);
