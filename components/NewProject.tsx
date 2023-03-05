@@ -1,6 +1,6 @@
 'use client';
 import { createNewProject } from '@/lib/api';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 import Button from './Button';
 import Input from './Input';
@@ -13,7 +13,7 @@ const NewProject = () => {
   const closeModal = () => setIsOpen(false);
   const [name, setName] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await createNewProject(name);
     closeModal();

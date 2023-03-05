@@ -1,10 +1,9 @@
 import clsx from 'clsx';
-import { FC } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 
-const GlassPane: FC<React.HTMLAttributes<HTMLDivElement>> = ({
-  children,
-  className,
-}) => {
+interface InputProps extends ComponentPropsWithoutRef<'input'> {}
+
+const GlassPane = ({ children, className }: InputProps) => {
   return (
     <div
       className={clsx(

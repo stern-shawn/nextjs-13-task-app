@@ -2,9 +2,10 @@ import TaskCard from '@/components/TaskCard';
 import { getUserFromCookie } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { cookies } from 'next/headers';
+import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
 
 const getData = async (id: string) => {
-  const user = await getUserFromCookie(cookies());
+  const user = await getUserFromCookie(cookies() as RequestCookies);
   const project = await db.project.findFirst({
     where: { id, ownerId: user!.id },
     include: {

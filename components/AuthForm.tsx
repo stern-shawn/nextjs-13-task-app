@@ -1,6 +1,6 @@
 'use client';
 import { register, signin } from '@/lib/api';
-import { useCallback, useState } from 'react';
+import { FormEvent, useCallback, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Card from './Card';
@@ -31,7 +31,7 @@ export default function AuthForm({ mode }: { mode: 'register' | 'signin' }) {
 
   const router = useRouter();
   const handleSubmit = useCallback(
-    async (e) => {
+    async (e: FormEvent) => {
       e.preventDefault();
 
       try {

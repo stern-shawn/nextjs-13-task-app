@@ -8,11 +8,12 @@ import { getUserFromCookie } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
+import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
 import { Suspense } from 'react';
 
 const getData = async () => {
   await delay(3000);
-  const user = await getUserFromCookie(cookies());
+  const user = await getUserFromCookie(cookies() as RequestCookies);
   const projects = await db.project.findMany({
     where: {
       ownerId: user!.id,
@@ -53,6 +54,7 @@ export default async function Page() {
         </div>
         <div className="mt-6 flex-2 grow w-full flex">
           <div className="w-full">
+            {/* @ts-expect-error Server Component */}
             <TaskCard />
           </div>
         </div>

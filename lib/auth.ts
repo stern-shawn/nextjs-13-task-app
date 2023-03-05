@@ -1,5 +1,10 @@
+import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { SignJWT, jwtVerify } from 'jose';
+import {
+  RequestCookie,
+  RequestCookies,
+} from 'next/dist/server/web/spec-extension/cookies';
 import { db } from './db';
 
 export const hashPassword = (password: string) => bcrypt.hash(password, 10);
@@ -11,7 +16,7 @@ export const comparePasswords = (
 
 type UserJWT = { id: string; email: string };
 
-export const createJWT = (user: UserJWT) => {
+export const createJWT = (user: Partial<User>) => {
   const iat = Math.floor(Date.now() / 1000);
   const exp = iat + 60 * 60 * 24 * 7;
 
@@ -32,10 +37,10 @@ export const validateJWT = async (jwt: string) => {
   return payload.payload as UserJWT;
 };
 
-export const getUserFromCookie = async (cookies: any) => {
-  const jwt = cookies.get(process.env.COOKIE_NAME as string);
+export const getUserFromCookie = async (cookies: RequestCookies) => {
+  const jwt = cookies.get(process.env.COOKIE_NAME as string) as RequestCookie;
 
-  const { id } = await validateJWT(jwt!.value);
+  const { id } = await validateJWT(jwt.value);
 
   const user = await db.user.findUnique({
     where: {

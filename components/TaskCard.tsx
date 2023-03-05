@@ -2,11 +2,13 @@ import { getUserFromCookie } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { Task, TASK_STATUS } from '@prisma/client';
 import { cookies } from 'next/headers';
+import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
+
 import Button from './Button';
 import Card from './Card';
 
 const getData = async () => {
-  const user = await getUserFromCookie(cookies());
+  const user = await getUserFromCookie(cookies() as RequestCookies);
   const tasks = await db.task.findMany({
     where: {
       ownerId: user!.id,
