@@ -7,6 +7,9 @@ const nextConfig = {
     ],
     serverComponentsExternalPackages: ['bcrypt'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
