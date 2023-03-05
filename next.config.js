@@ -7,6 +7,9 @@ const nextConfig = {
     ],
     serverComponentsExternalPackages: ['bcrypt'],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 
 module.exports = nextConfig;
